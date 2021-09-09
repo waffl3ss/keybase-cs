@@ -1,0 +1,62 @@
+# https://www.cobaltstrike.com/aggressor-script/index.html
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#ready
+on ready {
+	elog("Keybase Webhook notifications are now configured");
+	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#event_notify
+#on event_notify {
+#	$push = exec("/opt/cobaltstrike/keybase-cs.sh System Event: \\n\\t$2 $+ : $1"); 
+#	@pushdata = readAll($push);
+#	closef($push);
+#	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#event_newsite
+#on event_newsite {
+#	$push = exec("/opt/cobaltstrike/keybase-cs.sh New Site Added: \\n\\t$3 $+ : $1 $+ : $2 ");
+#	@pushdata = readAll($push);
+#	closef($push);
+#	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#event_action
+#on event_action {
+#	$push = exec("/opt/cobaltstrike/keybase-cs.sh Action Performed: \\n\\t$2 $+ : < $+ $3 $+ >: $1 ");
+#	@pushdata = readAll($push);
+#	closef($push);
+#	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#beacon_initial
+on beacon_initial {
+	$push = exec("/opt/cobaltstrike/keybase-cs.sh New Beacon Received: \\n\\t+ID: $1 \\n\\t+Hostname: " . binfo($1, "computer"));
+	@pushdata = readAll($push);
+	closef($push);
+	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#ssh_initial
+#on ssh_initial {
+#	$push = exec("/opt/cobaltstrike/keybase-cs.sh New SSH Session Received: \\n\\t+ID: $1 \\n\\t+Hostname " . binfo($1, "computer"));
+#	@pushdata = readAll($push);
+#	closef($push);
+#	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#event_join
+on event_join {
+	$push = exec("/opt/cobaltstrike/keybase-cs.sh User Joined: \\n\\t+$1 has joined");
+	@pushdata = readAll($push);
+	closef($push);
+	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#event_public
+#on event_public {
+#	$push = exec("/opt/cobaltstrike/keybase-cs.sh New Message: \\n\\t$3 $+ : < $+ $1 $+ >: $2 ");
+#	@pushdata = readAll($push);
+#	closef($push);
+#	}
+
+# https://www.cobaltstrike.com/aggressor-script/events.html#event_quit
+#on event_quit {
+#	$push = exec("/opt/cobaltstrike/keybase-cs.sh User Left: \\n\\t$2 $+ : $1 has quit");
+#	@pushdata = readAll($push);
+#	closef($push);
+#	}
